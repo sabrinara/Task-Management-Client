@@ -1,11 +1,12 @@
 import Banner from "../pages/Banner";
+import Managers from "../pages/Managers";
 
 
 const Home = () => {
     return (
         <div>
-            <h1>This is home</h1>
             <Banner></Banner>
+            <Managers></Managers>
         </div>
     );
 };
