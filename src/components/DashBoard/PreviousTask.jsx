@@ -1,14 +1,12 @@
 // PreviousTask.js
 import  { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import Alerts from '../../pages/Alerts';
 
 const PreviousTask = () => {
  
   const [tasks, setTasks] = useState([]);
-  const { handleSubmit, reset } = useForm();
 
   useEffect(() => {
     const fetchUserTasks = async () => {
@@ -36,33 +34,13 @@ const PreviousTask = () => {
 
   const updateTaskOrder = async (newTasks) => {
     try {
-      await axios.put('http://localhost:5000/tasks', { tasks: newTasks });
+      await axios.put('http://localhost:5000/tasks', newTasks);
       setTasks(newTasks);
-      Alerts.success('Task order updated successfully');
     } catch (error) {
       console.error(error);
       Alerts.error('Error updating task order');
     }
-  };
 
-  const onSubmit = async (data) => {
-    const newTask = {
-      title: data.title,
-      description: data.description,
-      deadline: data.deadline,
-      priority: 'todo', // Set default priority to 'todo'
-    };
-
-    try {
-      await axios.post('http://localhost:5000/tasks', newTask);
-      const response = await axios.get('http://localhost:5000/tasks');
-      setTasks(response.data);
-      reset();
-      Alerts.success('Task added successfully');
-    } catch (error) {
-      console.error(error);
-      Alerts.error('Error adding task');
-    }
   };
 
   const deleteTask = async (taskId) => {
@@ -169,14 +147,7 @@ const PreviousTask = () => {
         </div>
       </DragDropContext>
 
-      <div className="task-form p-4">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Form fields... */}
-          <button type="submit" className="button">
-            Add Task
-          </button>
-        </form>
-      </div>
+     
     </div>
   );
 };

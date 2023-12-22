@@ -9,6 +9,8 @@ import CreateTask from "../components/DashBoard/CreateTask";
 import PreviousTask from "../components/DashBoard/PreviousTask";
 import PrivateRoute from "./PrivateRoute";
 import MyDetails from "../components/DashBoard/MyDetails";
+import About from "../pages/About";
+import Contact from "../pages/Contact";
 
 const routes = createBrowserRouter([
     {
@@ -43,6 +45,14 @@ const routes = createBrowserRouter([
             {
                 path:"/mydetails",
                 element : <PrivateRoute><MyDetails></MyDetails></PrivateRoute>
+            },
+            {
+                path: "/about",
+                element: <PrivateRoute><About></About></PrivateRoute>
+            },
+            {
+                path: "/contact",
+                element: <PrivateRoute><Contact></Contact></PrivateRoute>
             }
         ]
     }
