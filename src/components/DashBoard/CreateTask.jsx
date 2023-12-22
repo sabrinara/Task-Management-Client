@@ -24,7 +24,7 @@ const CreateTask = () => {
         const newTask = { title, deadline, description, priority, email, status };
         console.log(newTask);
 
-        fetch('http://localhost:5000/tasks', {
+        fetch('https://task-backend-azure.vercel.app/tasks', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

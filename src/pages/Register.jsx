@@ -46,7 +46,7 @@ const Register = () => {
                 image: image,
     
             }
-            axios.post('http://localhost:5000', userInfo)
+            axios.post('https://task-backend-azure.vercel.app', userInfo)
                 .then(res => {
                     console.log(res);
                     if(res.data?.insertedId) {
