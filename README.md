@@ -6,5 +6,8 @@
 - Task can be update and delete
 - Priory-based task management
 - Drag and drop task
+
+### Environment setup -
+
   
 
