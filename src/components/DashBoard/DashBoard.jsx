@@ -6,7 +6,7 @@ const DashBoard = () => {
   
     return (
         <div className="flex">
-           <div className="w-1/3 md:1/5">
+           <div className="w-1/3 md:w-1/5">
              <div className="drawer-open ">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col items-start justify-start">
@@ -24,7 +24,7 @@ const DashBoard = () => {
                 </div>
             </div> 
            </div>
-           <div className="w-2/3 md:4/5">
+           <div className="w-2/3 md:w-4/5">
             <MyDetails></MyDetails>
            </div>
            
