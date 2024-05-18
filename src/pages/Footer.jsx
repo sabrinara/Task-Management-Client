@@ -7,8 +7,8 @@ const Footer = () => {
             <div className="footer justify-center  md:justify-evenly ">
                 <aside className="flex flex-col  items-center   ">
                     <div className="flex items-center">
-                        <img className="w-10 h-10" src={Logo} alt="" />
-                        <h1 className="text-4xl mx-2 font-serif font-semibold text-cyan-500 "> <span className=" font-sans font-bold text-red-500">Task </span>Management</h1>
+                        <img className="w-8 h-8 md:w-10 md:h-10" src={Logo} alt="" />
+                        <h1 className="text-2xl md:text-4xl mx-2 font-serif font-semibold text-cyan-500 "> <span className=" font-sans font-bold text-red-500">Task </span>Management</h1>
                     </div>
 
 

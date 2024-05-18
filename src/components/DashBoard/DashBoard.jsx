@@ -1,4 +1,3 @@
-
 import { NavLink } from "react-router-dom";
 import MyDetails from "./MyDetails";
 import { IoCreateOutline } from "react-icons/io5";
@@ -8,12 +7,11 @@ const DashBoard = () => {
     return (
         <div className="flex">
            <div className="w-1/3 md:1/5">
-             <div className="drawer md:drawer-open ">
+             <div className="drawer-open ">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col items-start justify-start">
                     {/* Page content here */}
-                    <label htmlFor="my-drawer-2" className="py-2 px-2 rounded-md ml-5 bg-sky-600 text-white hover:bg-sky-800 drawer-button md:hidden">Open drawer</label>
-
+                    {/* <label htmlFor="my-drawer-2" className="py-2 px-2 rounded-md ml-5 bg-sky-600 text-white hover:bg-sky-800 drawer-button md:hidden">Open drawer</label> */}
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>

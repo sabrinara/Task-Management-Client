@@ -39,34 +39,13 @@ const Register = () => {
 
             await createUser(email, password);
             await handleUpdateProfile(name, image);
-          
-            const userInfo = {
-                name: name,
-                email: email,
-                image: image,
-    
-            }
-            axios.post('https://task-backend-azure.vercel.app', userInfo)
-                .then(res => {
-                    console.log(res);
-                    if(res.data?.insertedId) {
-                        Swal.fire({
-                            title: 'Success',
-                            text: 'Task Added Sucessfully!',
-                            icon: 'success',
-                            confirmButtonText: 'Cool!',
-                        })  
-                        navigate('/');
-                    }
-                })
-               .catch(error => {
-                   Swal.fire({
-                       title: 'Error',
-                       text: error.message,
-                       icon: 'error',
-                       confirmButtonText: 'Cool!',
-                   })
-               })
+            Swal.fire({
+                title: 'Success',
+                text: 'Registration Sucessfully!',
+                icon: 'success',
+                confirmButtonText: 'Cool!',
+            })
+            navigate('/');
         
         } catch (error) {
             Swal.fire({
@@ -88,8 +67,8 @@ const Register = () => {
                     </div>
                     <div className="card flex-shrink-0 w-full md:w-[100rem] max-w-xl shadow-2xl">
                         <a href="#" className="flex items-center justify-center mt-8">
-                            <img className="w-10 h-10 " src={Logo} alt="logo" />
-                            <h1 className="text-4xl text-cyan-600 "> <span className="text-4xl font-sans font-bold text-red-500">Task </span> Management</h1>
+                            <img className="w-8 h-8 md:w-10 md:h-10 " src={Logo} alt="logo" />
+                            <h1 className="text-2xl md:text-4xl text-cyan-600 "> <span className="text-2xl md:text-4xl font-sans font-bold text-red-500">Task </span> Management</h1>
                         </a>
                         <form className="card-body" onSubmit={handleRegister}>
                             <div className="form-control">
