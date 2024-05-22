@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProvider";
-
+import { toast } from "react-toastify";
 
 const MyDetails = () => {
     const { user } = useContext(AuthContext);
@@ -9,13 +9,15 @@ const MyDetails = () => {
     const [currentTask, setCurrentTask] = useState(null);
 
     useEffect(() => {
-      fetch(`https://task-backend-azure.vercel.app/tasks`)  
-        .then(res => res.json())
-        .then((data) => {
-            const filteredTasks = data.filter(task => task.email === user?.email);
-            setTasks(filteredTasks);
-        })
-        .catch(error => console.log(error));
+        if (user) {
+            fetch(`https://task-backend-azure.vercel.app/tasks`)
+                .then(res => res.json())
+                .then((data) => {
+                    const filteredTasks = data.filter(task => task.email === user.email);
+                    setTasks(filteredTasks);
+                })
+                .catch(error => console.log(error));
+        }
     }, [user]);
 
     const handleUpdate = (event) => {
@@ -25,14 +27,15 @@ const MyDetails = () => {
         const description = form.description.value;
         const deadline = form.deadline.value;
         const priority = form.priority.value;
-        const email = user?.email;
+        const status = form.status.value;
+        const email = user.email;
 
-        const updatedTask = { title, description, deadline, priority, email };
+        const updatedTask = { title, description, deadline, priority, email , status};
 
         fetch(`https://task-backend-azure.vercel.app/tasks/${currentTask._id}`, {
             method: 'PUT',
             headers: {
-                'content-type': 'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(updatedTask)
         })
@@ -40,15 +43,16 @@ const MyDetails = () => {
             .then(data => {
                 if (data.modifiedCount > 0) {
                     Swal.fire('Task updated successfully!', '', 'success');
-                    setTasks(prevTasks => prevTasks.map(task => 
+                    setTasks(prevTasks => prevTasks.map(task =>
                         task._id === currentTask._id ? { ...task, ...updatedTask } : task
                     ));
                     setCurrentTask(null);
+                    toast.success('Task updated successfully!');
                     form.reset();
+                    document.getElementById("my_modal_5").close();
                 }
             })
             .catch(error => console.log(error));
-        document.getElementById("my_modal_5").close();
     };
 
     const handleDelete = (taskId) => {
@@ -99,10 +103,7 @@ const MyDetails = () => {
                                     <button className="btn bg-red-600 text-white hover:bg-red-500 mb-2 rounded" onClick={() => handleDelete(task._id)}>Delete</button>
                                     <button
                                         className="btn rounded mb-2 bg-blue-600 text-white hover:bg-blue-500"
-                                        onClick={() => {
-                                            setCurrentTask(task);
-                                            document.getElementById("my_modal_5").showModal();
-                                        }}
+                                        onClick={() => setCurrentTask(task)}
                                     >
                                         Update
                                     </button>
@@ -114,11 +115,14 @@ const MyDetails = () => {
             </div>
 
             {currentTask && (
-                <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+                <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle" open>
                     <div className="modal-box">
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => document.getElementById("my_modal_5").close()}>✕</button>
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => {
+                            document.getElementById("my_modal_5").close();
+                            setCurrentTask(null);
+                        }}>✕</button>
                         <form onSubmit={handleUpdate}>
-                            <div className="flex gap-2">
+                            
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Title</span>
@@ -127,13 +131,13 @@ const MyDetails = () => {
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
-                                        <span className="label-text">Deadline</span>
+                                        <span className="label-text">Description</span>
                                     </label>
-                                    <input type="date" name="deadline" defaultValue={currentTask.deadline} className="input input-bordered" required />
+                                    <input type="text" name="description" defaultValue={currentTask.description} className="input input-bordered" required />
                                 </div>
-                            </div>
-                            <div className="flex gap-2">
-                                <div className="form-control">
+                          
+                            <div className="flex justify-between gap-2">
+                                <div className="form-control w-1/3">
                                     <label className="label">
                                         <span className="label-text">Priority</span>
                                     </label>
@@ -143,16 +147,24 @@ const MyDetails = () => {
                                         <option value="High">High</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div className="flex gap-2">
-                                <div className="form-control">
+                                <div className="form-control w-1/3">
                                     <label className="label">
-                                        <span className="label-text">Description</span>
+                                        <span className="label-text">Deadline</span>
                                     </label>
-                                    <input type="text" name="description" defaultValue={currentTask.description} className="input input-bordered" required />
+                                    <input type="date" name="deadline" defaultValue={currentTask.deadline} className="input input-bordered" required />
                                 </div>
+                                <div className="form-control w-1/3">
+                                    <label className="label">
+                                        <span className="label-text"> Status (can&apos;t update)</span>
+                                    </label>
+                                   <input type="text" name="status" value={currentTask.status} className="input input-bordered" />
+                                </div>
+
                             </div>
-                            <button className="btn rounded mt-4 w-full text-white bg-blue-400 hover:bg-blue-600">Update</button>
+                            
+                              
+                            
+                            <button className="btn rounded mt-4 w-full text-white bg-blue-400 hover:bg-blue-600" type="submit">Update</button>
                         </form>
                     </div>
                 </dialog>
