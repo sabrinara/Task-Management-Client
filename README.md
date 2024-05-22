@@ -1,5 +1,5 @@
 # Task Management App
-## Live- https://task-management0-react.netlify.app/
+## Live- https://task-management0-react.netlify.app
 ### Features -
 - Authenticated user 
 - Create a new task
