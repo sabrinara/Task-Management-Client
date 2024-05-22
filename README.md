@@ -8,6 +8,9 @@
 - Drag and drop task
 
 ### Environment setup -
+##### set env for firebase config -
+```bash
 
+```
   
 
